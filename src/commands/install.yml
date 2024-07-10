@@ -49,9 +49,9 @@ steps:
           echo "${SNYK_CLI_VERSION}" >> /tmp/.snyk-version
         fi        
         cat /tmp/.snyk-version
-  - restore_cache:
-      keys:
-        - v0-snyk-cli-install-{{ arch }}-<<parameters.os>>-{{ checksum "/tmp/.snyk-version" }}
+  # - restore_cache:
+  #     keys:
+  #       - v0-snyk-cli-install-{{ arch }}-<<parameters.os>>-{{ checksum "/tmp/.snyk-version" }}
   - run:
       name: Download and configure Snyk CLI
       environment:
@@ -83,7 +83,7 @@ steps:
         sudo ln -sf /tmp/snyk /usr/local/bin/snyk
         snyk config set disableSuggestions=true
         <<#parameters.token-variable>>snyk auth $<<parameters.token-variable>><</parameters.token-variable>>
-  - save_cache:
-      key: v0-snyk-cli-install-{{ arch }}-<<parameters.os>>-{{ checksum "/tmp/.snyk-version" }}
-      paths:
-        - /tmp/snyk
+  # - save_cache:
+  #     key: v0-snyk-cli-install-{{ arch }}-<<parameters.os>>-{{ checksum "/tmp/.snyk-version" }}
+  #     paths:
+  #       - /tmp/snyk
